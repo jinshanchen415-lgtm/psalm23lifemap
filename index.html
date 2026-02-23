@@ -14,13 +14,12 @@
 </head>
 <body class="bg-gradient-to-b from-sky-50 to-amber-50 min-h-screen">
   <div id="app" class="max-w-3xl mx-auto p-5">
-    <!-- Header -->
+    
     <div class="text-center mb-6">
       <h1 class="text-3xl font-bold text-gray-800 mb-2">🗺️ 詩篇23篇生命地圖</h1>
       <p class="text-gray-600 text-lg">從內蓋夫曠野到耶和華的殿——標記你生命中的每個場景</p>
     </div>
-
-    <!-- Progress Bar -->
+    
     <div class="bg-white rounded-xl p-4 mb-5 shadow-sm">
       <div class="flex items-center justify-between mb-2">
         <span class="text-base text-gray-600">完成進度</span>
@@ -30,27 +29,22 @@
         <div id="progressBar" class="bg-gradient-to-r from-green-400 to-blue-500 h-3 rounded-full transition-all duration-500" style="width: 0%"></div>
       </div>
     </div>
-
-    <!-- Tab Buttons -->
+    
     <div class="flex gap-2 mb-5">
       <button onclick="showView('map')" id="tabMap" class="flex-1 py-3 px-2 rounded-xl text-base font-bold transition-colors bg-blue-500 text-white">🗺️ 地圖探索</button>
       <button onclick="showView('summary')" id="tabSummary" class="flex-1 py-3 px-2 rounded-xl text-base font-bold transition-colors bg-white text-gray-600 hover:bg-gray-100">📋 總覽宣告</button>
       <button onclick="showView('analysis')" id="tabAnalysis" class="flex-1 py-3 px-2 rounded-xl text-base font-bold transition-colors bg-white text-gray-600 hover:bg-gray-100">📖 聖經解析</button>
     </div>
-
-    <!-- Map View -->
+    
     <div id="mapView">
       <div class="text-center text-gray-500 text-lg mb-3">👆 點選任一站點進行選擇</div>
       <div id="locationGrid" class="grid grid-cols-2 gap-4"></div>
     </div>
-
-    <!-- Detail View -->
+    
     <div id="detailView" class="hidden"></div>
-
-    <!-- Summary View -->
+    
     <div id="summaryView" class="hidden space-y-5"></div>
-
-    <!-- Analysis View -->
+    
     <div id="analysisView" class="hidden space-y-5"></div>
   </div>
 
