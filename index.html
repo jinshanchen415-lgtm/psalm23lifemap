@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
 <body class="bg-gradient-to-b from-sky-50 to-amber-50 min-h-screen">
     <div id="root"></div>
@@ -84,93 +84,8 @@
             icon: '🛤️',
             color: 'bg-purple-100 border-purple-400',
             options: [
-              { id: 'a', text: '一扇關閉的門，後來開啟了更好的機會', insight: '關門的引導', scripture: '耶和華說：我的意念非同你們的意念；我的道路非同 শুটিং你們的道路。天怎樣高過地，照樣，我的道路高過你們的道路。', scriptureRef: '以賽亞書 55:8-9', guidance: '那扇關閉的門當時可能讓你失望，但神的視野比我們更廣闊。祂關上一扇門，往往是為了打開更好的一扇。學習在門關上時，仍然信靠神的美意。' },
+              { id: 'a', text: '一扇關閉的門，後來開啟了更好的機會', insight: '關門的引導', scripture: '耶和華說：我的意念非同你們的意念；我的道路非同你們的道路。天怎樣高過地，照樣，我的道路高過你們的道路。', scriptureRef: '以賽亞書 55:8-9', guidance: '那扇關閉的門當時可能讓你失望，但神的視野比我們更廣闊。祂關上一扇門，往往是為了打開更好的一扇。學習在門關上時，仍然信靠神的美意。' },
               { id: 'b', text: '一段困難的經歷，塑造了我的品格', insight: '苦難中的引導', scripture: '我們曉得萬事都互相效力，叫愛神的人得益處。', scriptureRef: '羅馬書 8:28', guidance: '那段困難的經歷在當時是痛苦的，但現在你能看見神如何使用它來塑造你。這不是說神喜歡讓你受苦，而是祂有能力把苦難轉化為祝福。' },
               { id: 'c', text: '一個被迫的等待，讓我學會信靠', insight: '等待中的引導', scripture: '我等候耶和華，我的心等候；我也仰望他的話。', scriptureRef: '詩篇 130:5', guidance: '等待是信心最大的考驗之一。那段被迫等待的時間，教導你依靠的不是時機、不是環境，而是那位掌管時間的神。等待的功課會成為你一生的資產。' },
               { id: 'd', text: '一次失敗的嘗試，保護我免於更大的錯誤', insight: '失敗中的引導', scripture: '義人雖七次跌倒，仍必興起。', scriptureRef: '箴言 24:16', guidance: '那次失敗在當時是挫折，但現在你能看見它其實是神的保護。感謝神，祂用小的跌倒來防止大的墜落。不要怕失敗，因為有時候失敗正是神的引導。' },
-              { id: 'e', text: '一段意外的相遇，帶來生命的轉折', insight: '相遇中的引導', scripture: '人心籌算自己的道路；惟耶和華指引他的腳步。', scriptureRef: '箴言 16:9', guidance: '那個「意外」的相遇，在神眼中並不意外。祂常常透過人與人的相遇來成就祂的計畫。保持開放的心，因為你不知道神下一次會透過誰來祝福你或使用你。' }
-            ]
-          },
-          {
-            id: 'valley',
-            name: '死蔭的幽谷',
-            verse: '我雖然行過死蔭的幽谷，也不怕遭害',
-            prompt: '現在最令你感到「在幽谷中」的挑戰是什麼？',
-            icon: '🌑',
-            color: 'bg-gray-200 border-gray-500',
-            options: [
-              { id: 'a', text: '對未來的不確定感和恐懼', insight: '面對未知的幽谷', scripture: '所以，不要為明天憂慮，因為明天自有明天的憂慮；一天的難處一天當就夠了。', scriptureRef: '馬太福音 6:34', guidance: '對未來的恐懼是人之常情，但請記得：你不需要一次背負所有日子的重擔。牧人只帶羊走今天的路，明天的路明天再走。把未來交託給那位已經在明天等候你的神。' },
-              { id: 'b', text: '失去所愛的人或關係的破裂', insight: '失去的幽谷', scripture: '耶和華靠近傷心的人，拯救靈性痛悔的人。', scriptureRef: '詩篇 34:18', guidance: '失去的痛是真實的，不需要假裝堅強。神靠近傷心的人——祂不會要你趕快走出來，而是陪伴你走過這段黑暗。讓自己好好哀傷，也讓神的安慰臨到你。' },
-              { id: 'c', text: '長期的疾病或身心軟弱', insight: '疾病的幽谷', scripture: '他對我說：我的恩典夠你用的，因為我的能力是在人的軟弱上顯得完全。', scriptureRef: '哥林多後書 12:9', guidance: '長期的病痛是漫長的幽谷。神可能沒有立即醫治你，但祂應許祂的恩典夠你用。在軟弱中，讓神的能力成為你的倚靠，也讓自己成為見證神信實的器皿。' },
-              { id: 'd', text: '內心的罪疚感或羞恥感', insight: '罪疚的幽谷', scripture: '我們若認自己的罪，神是信實的，是公義的，必要赦免我們的罪，洗淨我們一切的不義。', scriptureRef: '約翰一書 1:9', guidance: '罪疚感可以引導我們悔改，但持續的羞恥感不是從神來的。如果你已經向神認罪，祂已經赦免你了。不要讓撒但用已蒙赦免的罪來控告你。站在神的恩典中，接受祂的赦免。' },
-              { id: 'e', text: '信仰的懷疑或屬靈的枯乾', insight: '懷疑的幽谷', scripture: '我信！但我信不足，求主幫助。', scriptureRef: '馬可福音 9:24', guidance: '懷疑不是信仰的終點，而可能是更深信仰的起點。誠實地把你的懷疑帶到神面前，祂不怕你的問題。那位父親說「我信不足，求主幫助」，耶穌沒有責備他，而是幫助了他。' }
-            ]
-          },
-          {
-            id: 'table',
-            name: '敵人面前的筵席',
-            verse: '在我敵人面前，你為我擺設筵席',
-            prompt: '在哪種「敵人」仍然存在的情況下，你曾經歷神所賜的平安？',
-            icon: '🍽️',
-            color: 'bg-yellow-100 border-yellow-400',
-            options: [
-              { id: 'a', text: '在工作壓力中，仍有從神來的安息', insight: '壓力中的筵席', scripture: '凡勞苦擔重擔的人可以到我這裡來，我就使你們得安息。', scriptureRef: '馬太福音 11:28', guidance: '你已經學會一個寶貴的功課：平安不是沒有壓力，而是在壓力中仍有安息。這是從神來的禮物。繼續操練在壓力中轉向神，讓祂成為你安息的源頭。' },
-              { id: 'b', text: '在人際衝突中，仍能保持內心平靜', insight: '衝突中的筵席', scripture: '我留下平安給你們；我將我的平安賜給你們。我所賜的，不像世人所賜的。你們心裡不要憂愁，也不要膽怯。', scriptureRef: '約翰福音 14:27', guidance: '在衝突中保持平靜是聖靈的果子。這不是冷漠，而是從神來的超然平安。繼續讓神掌管你的情緒，成為衝突中帶來和平的人。' },
-              { id: 'c', text: '在經濟困難中，仍經歷神的供應', insight: '困乏中的筵席', scripture: '少壯獅子還缺食忍餓，但尋求耶和華的什麼好處都不缺。', scriptureRef: '詩篇 34:10', guidance: '你在經濟困難中經歷神的供應，這是寶貴的見證。把這些經歷記錄下來，它們會成為你未來信心的根基，也能成為鼓勵他人的故事。' },
-              { id: 'd', text: '在疾病軟弱中，仍有喜樂和盼望', insight: '病痛中的筵席', scripture: '因為我們這至暫至輕的苦楚，要為我們成就極重無比、永遠的榮耀。', scriptureRef: '哥林多後書 4:17', guidance: '在疾病中仍有喜樂，這不是否認痛苦，而是超越痛苦的信心。你的生命正在見證：喜樂不是來自環境，而是來自神。這樣的見證比言語更有力量。' },
-              { id: 'e', text: '在世界的混亂中，仍有屬天的平安', insight: '混亂中的筵席', scripture: '我將這些事告訴你們，是要叫你們在我裡面有平安。在世上，你們有苦難；但你們可以放心，我已經勝了世界。', scriptureRef: '約翰福音 16:33', guidance: '世界的混亂不會停止，但你已經找到了在混亂中的錨——就是基督。繼續定睛在祂身上，因為祂已經勝過這世界。你的平安來自於祂的得勝。' }
-            ]
-          },
-          {
-            id: 'temple',
-            name: '終點：耶和華的殿',
-            verse: '我且要住在耶和華的殿中，直到永遠',
-            prompt: '對於「永遠與神同在」的盼望，什麼讓你有確據？',
-            icon: '🏛️',
-            color: 'bg-indigo-100 border-indigo-400',
-            options: [
-              { id: 'a', text: '耶穌的十架救恩與復活的應許', insight: '十架的確據', scripture: '神愛世人，甚至將他的獨生子賜給他們，叫一切信他的，不致滅亡，反得永生。', scriptureRef: '約翰福音 3:16', guidance: '你的確據建立在最穩固的根基上——耶穌的十架與空墳墓。這不是你賺來的，而是神白白賜給你的禮物。每當懷疑來臨時，回到十架前，重新思想神的愛有多大。' },
-              { id: 'b', text: '聖靈在我心中的印記與確據', insight: '聖靈的確據', scripture: '聖靈與我們的心同證我們是神的兒女。', scriptureRef: '羅馬書 8:16', guidance: '聖靈在你心中的見證是真實的。那個你說不出來但知道自己屬於神的感覺，正是聖靈的印記。珍惜這份確據，它是神給你的禮物。' },
-              { id: 'c', text: '過去經歷神信實的記憶', insight: '經歷的確據', scripture: '耶和華所行的是正直；他是我的磐石，在他毫無不義。', scriptureRef: '詩篇 92:15', guidance: '你過去經歷的神的信實，是你未來盼望的根基。那位昨日信實的神，今日和永遠都是一樣的。常常數算神的恩典，讓這些記憶成為你信心的燃料。' },
-              { id: 'd', text: '聖經中永生的應許與盼望', insight: '話語的確據', scripture: '天地要廢去，我的話卻不能廢去。', scriptureRef: '馬太福音 24:35', guidance: '神的話語是不會改變的。祂應許了永生，就必定成就。繼續扎根在神的話語中，讓聖經的應許成為你盼望的錨。' },
-              { id: 'e', text: '屬靈群體的見證與激勵', insight: '群體的確據', scripture: '我們既有這許多的見證人，如同雲彩圍著我們，就當放下各樣的重擔，脫去容易纏累我們的罪，存心忍耐，奔那擺在我們前頭的路程。', scriptureRef: '希伯來書 12:1', guidance: '你不是獨自奔跑這條路。那些在你之前、和你一起奔跑的見證人，印證了這條路是真實的。珍惜屬靈的群體，也成為別人信心的見證。' }
-            ]
-          }
-        ];
-
-        const declarationOptions = [
-          { text: '雖然未來看似曠野，但我相信牧人明天也會帶領我到新的青草地。', scripture: '所以，不要為明天憂慮，因為明天自有明天的憂慮。', scriptureRef: '馬太福音 6:34' },
-          { text: '我不需要為明天憂慮，因為神每天都會供應我所需要的。', scripture: '我們日用的飲食，今日賜給我們。', scriptureRef: '馬太福音 6:11' },
-          { text: '即使前路不明，我選擇跟隨牧人的腳步，因為祂認識我。', scripture: '我是好牧人；我認識我的羊，我的羊也認識我。', scriptureRef: '約翰福音 10:14' },
-          { text: '我的牧者從未離棄我，祂的恩惠慈愛必隨著我。', scripture: '我總不撇下你，也不丟棄你。', scriptureRef: '希伯來書 13:5' }
-        ];
-
-        function Psalm23LifeMap() {
-          const [responses, setResponses] = useState({});
-          const [activeLocation, setActiveLocation] = useState(null);
-          const [viewMode, setViewMode] = useState('map');
-          const [declaration, setDeclaration] = useState(null);
-
-          const handleSelect = (locationId, optionId) => {
-            setResponses(prev => {
-              const current = prev[locationId] || [];
-              if (current.includes(optionId)) {
-                return { ...prev, [locationId]: current.filter(id => id !== optionId) };
-              } else {
-                return { ...prev, [locationId]: [...current, optionId] };
-              }
-            });
-          };
-
-          const completedCount = Object.values(responses).filter(r => r && r.length > 0).length;
-          const progress = Math.round((completedCount / locations.length) * 100);
-
-          const getSelectedOptions = (locationId) => {
-            const loc = locations.find(l => l.id === locationId);
-            const selected = responses[locationId] || [];
-            return loc.options.filter(o => selected.includes(o.id));
-          };
-
-          const LocationCard = ({ loc, onClick }) => (
-            <div onClick={onClick} className={`p-5 rounded-xl border-3 cursor-pointer transition-all ${loc.color} hover:scale-105 hover:shadow-lg`}>
-              <div className="flex items-center gap-3 mb
+              { id: 'e', text: '一段意外的相遇，帶來生命的轉折', insight: '相遇中的引導', scripture: '人心籌算自己的道路；惟耶和華指引他的腳步。', scriptureRef: '箴言 16:9',
