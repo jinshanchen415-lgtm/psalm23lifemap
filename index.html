@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+// 定義生命地圖的各個站點與內容
 const locations = [
   {
     id: 'wilderness',
@@ -57,7 +58,7 @@ const locations = [
       { id: 'a', text: '過度使用社群媒體或追劇來逃避現實', insight: '數位世界的急流', scripture: '凡事我都可行，但不都有益處。凡事我都可行，但無論哪一件，我總不受它的轄制。', scriptureRef: '哥林多前書 6:12', guidance: '社群媒體和影視本身不是罪，但當它成為逃避現實的工具時，就像乾谷的急流——看似能解渴，實際卻會沖走你的時間和專注力。設立健康的界線，讓這些成為僕人而非主人。' },
       { id: 'b', text: '用忙碌工作來填補內心的空虛', insight: '忙碌的急流', scripture: '你們要先求他的國和他的義，這些東西都要加給你們了。', scriptureRef: '馬太福音 6:33', guidance: '工作是神的呼召，但當工作成為填補空虛的方式時，它就變成了偶像。問問自己：我是在為神工作，還是用工作來逃避面對內心？學習在神面前安靜，讓祂來滿足你。' },
       { id: 'c', text: '依賴物質享受來獲得短暫快樂', insight: '物質的急流', scripture: '不要為那必壞的食物勞力，要為那存到永生的食物勞力。', scriptureRef: '約翰福音 6:27', guidance: '物質享受帶來的滿足是短暫的，需要不斷加量才能維持。真正的滿足只有在神裡面才能找到。這不是說不能享受物質，而是不讓它成為你快樂的來源。' },
-      { id: 'd', text: '尋求人的認可來肯定自我價值', insight: '認可的急流', scripture: '我現在是要得人的心呢？還是要得神的心呢？我豈是討人的喜歡嗎？若仍舊討人的喜歡，我就不是基督的僕人了。', scriptureRef: '加拉太書 1:10', guidance: '渴望被認可是人之常情，但當它成為你價值感的來源時，你就會被它控制。你的價值不在於人怎麼看你，而在於神怎麼看你——祂看你為寶貴，配得祂兒子的生命。' },
+      { id: 'd', text: '尋求人的認可來肯定自我價值', insight: '認官的急流', scripture: '我現在是要得人的心呢？還是要得神的心呢？我豈是討人的喜歡嗎？若仍舊討人的喜歡，我就不是基督的僕人了。', scriptureRef: '加拉太書 1:10', guidance: '渴望被認可是人之常情，但當它成為你價值感的來源時，你就會被它控制。你的價值不在於人怎麼看你，而在於神怎麼看你——祂看你為寶貴，配得祂兒子的生命。' },
       { id: 'e', text: '靠自己的能力解決一切問題', insight: '自力的急流', scripture: '你們得救是本乎恩，也因著信；這並不是出於自己，乃是神所賜的。', scriptureRef: '以弗所書 2:8', guidance: '自立自強在這世界被推崇，但在神的國度裡，承認軟弱才是力量的開始。當你放下「我可以靠自己」的驕傲，才能真正經歷神的大能。' }
     ]
   },
@@ -123,6 +124,7 @@ const locations = [
   }
 ];
 
+// 最後的信心宣告選項
 const declarationOptions = [
   { text: '雖然未來看似曠野，但我相信牧人明天也會帶領我到新的青草地。', scripture: '所以，不要為明天憂慮，因為明天自有明天的憂慮。', scriptureRef: '馬太福音 6:34' },
   { text: '我不需要為明天憂慮，因為神每天都會供應我所需要的。', scripture: '我們日用的飲食，今日賜給我們。', scriptureRef: '馬太福音 6:11' },
@@ -136,6 +138,7 @@ export default function Psalm23LifeMap() {
   const [viewMode, setViewMode] = useState('map');
   const [declaration, setDeclaration] = useState(null);
 
+  // 處理選項點擊（支援複選）
   const handleSelect = (locationId, optionId) => {
     setResponses(prev => {
       const current = prev[locationId] || [];
@@ -156,6 +159,7 @@ export default function Psalm23LifeMap() {
     return loc.options.filter(o => selected.includes(o.id));
   };
 
+  // 渲染地圖上的站點卡片
   const LocationCard = ({ loc, onClick }) => (
     <div onClick={onClick} className={`p-5 rounded-xl border-3 cursor-pointer transition-all ${loc.color} hover:scale-105 hover:shadow-lg`}>
       <div className="flex items-center gap-3 mb-3">
@@ -169,6 +173,7 @@ export default function Psalm23LifeMap() {
     </div>
   );
 
+  // 渲染站點詳細選擇面板
   const DetailPanel = ({ loc }) => (
     <div className={`p-6 rounded-xl border-3 ${loc.color}`}>
       <div className="flex items-center gap-4 mb-5">
@@ -202,6 +207,7 @@ export default function Psalm23LifeMap() {
     </div>
   );
 
+  // 總覽與宣告視圖
   const SummaryView = () => (
     <div className="space-y-5">
       <div className="bg-gradient-to-r from-green-50 to-blue-50 p-5 rounded-xl border-2">
@@ -249,9 +255,10 @@ export default function Psalm23LifeMap() {
     </div>
   );
 
+  // 聖經解析與屬靈引導視圖
   const AnalysisView = () => {
-    const allSelected = locations.flatMap(loc => getSelectedOptions(loc.id).map(opt => ({ ...opt, locationName: loc.name, locationIcon: loc.icon })));
-    if (allSelected.length === 0) {
+    const allSelectedCount = locations.flatMap(loc => getSelectedOptions(loc.id)).length;
+    if (allSelectedCount === 0) {
       return (
         <div className="bg-gray-50 p-8 rounded-xl border-2 text-center">
           <p className="text-gray-500 text-xl">請先在「地圖探索」中完成選擇，<br/>才能查看聖經解析。</p>
@@ -314,6 +321,8 @@ export default function Psalm23LifeMap() {
         <h1 className="text-3xl font-bold text-gray-800 mb-2">🗺️ 詩篇23篇生命地圖</h1>
         <p className="text-gray-600 text-lg">從內蓋夫曠野到耶和華的殿——標記你生命中的每個場景</p>
       </div>
+
+      {/* 進度條 */}
       <div className="bg-white rounded-xl p-4 mb-5 shadow-sm">
         <div className="flex items-center justify-between mb-2">
           <span className="text-base text-gray-600">完成進度</span>
@@ -323,12 +332,22 @@ export default function Psalm23LifeMap() {
           <div className="bg-gradient-to-r from-green-400 to-blue-500 h-3 rounded-full transition-all duration-500" style={{ width: `${progress}%` }} />
         </div>
       </div>
+
+      {/* 導覽按鈕 */}
       <div className="flex gap-2 mb-5">
         <button onClick={() => setViewMode('map')} className={`flex-1 py-3 px-2 rounded-xl text-base font-bold transition-colors ${viewMode === 'map' ? 'bg-blue-500 text-white' : 'bg-white text-gray-600 hover:bg-gray-100'}`}>🗺️ 地圖探索</button>
         <button onClick={() => setViewMode('summary')} className={`flex-1 py-3 px-2 rounded-xl text-base font-bold transition-colors ${viewMode === 'summary' ? 'bg-blue-500 text-white' : 'bg-white text-gray-600 hover:bg-gray-100'}`}>📋 總覽宣告</button>
         <button onClick={() => setViewMode('analysis')} className={`flex-1 py-3 px-2 rounded-xl text-base font-bold transition-colors ${viewMode === 'analysis' ? 'bg-blue-500 text-white' : 'bg-white text-gray-600 hover:bg-gray-100'}`}>📖 聖經解析</button>
       </div>
-      {viewMode === 'summary' ? <SummaryView /> : viewMode === 'analysis' ? <AnalysisView /> : activeLocation ? <DetailPanel loc={locations.find(l => l.id === activeLocation)} /> : (
+
+      {/* 內容區域 */}
+      {viewMode === 'summary' ? (
+        <SummaryView />
+      ) : viewMode === 'analysis' ? (
+        <AnalysisView />
+      ) : activeLocation ? (
+        <DetailPanel loc={locations.find(l => l.id === activeLocation)} />
+      ) : (
         <div className="space-y-4">
           <div className="text-center text-gray-500 text-lg mb-3">👆 點選任一站點進行選擇</div>
           <div className="grid grid-cols-2 gap-4">
@@ -339,4 +358,3 @@ export default function Psalm23LifeMap() {
     </div>
   );
 }
-Claude
