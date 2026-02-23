@@ -1,0 +1,342 @@
+import React, { useState } from 'react';
+
+const locations = [
+  {
+    id: 'wilderness',
+    name: '起點：內蓋夫曠野',
+    verse: '耶和華是我的牧者，我必不致缺乏',
+    prompt: '此刻，你生命中哪個領域讓你感到「在曠野中」？',
+    icon: '🏜️',
+    color: 'bg-amber-100 border-amber-400',
+    options: [
+      { id: 'a', text: '工作或學業——前路不明、壓力沉重', insight: '工作與學業的曠野', scripture: '你不要害怕，因為我與你同在；不要驚惶，因為我是你的神。我必堅固你，我必幫助你；我必用我公義的右手扶持你。', scriptureRef: '以賽亞書 41:10', guidance: '神看見你在職場或學業中的掙扎。祂不僅是你的牧者，更是那位在曠野中開道路的神。當你感到前路不明時，不是要你看清全部的路，而是學習一步一步跟隨祂的帶領。' },
+      { id: 'b', text: '人際關係——感到孤單或被誤解', insight: '關係中的曠野', scripture: '耶和華靠近傷心的人，拯救靈性痛悔的人。', scriptureRef: '詩篇 34:18', guidance: '在人際關係的曠野中，你可能感到被誤解或孤單。但請記得，即使人不了解你，神完全認識你、接納你。祂是那位在你孤單時靠近你的神。' },
+      { id: 'c', text: '健康狀況——身體或心理的疲憊', insight: '身心的曠野', scripture: '疲乏的，他賜能力；軟弱的，他加力量。', scriptureRef: '以賽亞書 40:29', guidance: '身體或心理的疲憊是真實的曠野經歷。神不輕看你的軟弱，反而應許要賜能力給疲乏的人。在這段時間，學習接受自己的有限，讓神成為你的力量。' },
+      { id: 'd', text: '信仰生命——感覺與神疏遠、禱告無力', insight: '屬靈的曠野', scripture: '你們親近神，神就必親近你們。', scriptureRef: '雅各書 4:8', guidance: '屬靈的乾旱是許多信徒都會經歷的。重要的是：不是等到「感覺」對了才親近神，而是在感覺不到祂的時候，仍然選擇來到祂面前。這正是信心的操練。' },
+      { id: 'e', text: '財務或生活——資源不足、憂慮明天', insight: '供應的曠野', scripture: '我的神必照他榮耀的豐富，在基督耶穌裡，使你們一切所需用的都充足。', scriptureRef: '腓立比書 4:19', guidance: '財務的壓力常讓我們憂慮明天。但牧人每天都會為羊找到足夠的草——神應許供應你「今天」所需的。學習把明天的憂慮交託給祂。' }
+    ]
+  },
+  {
+    id: 'grass',
+    name: '青草地',
+    verse: '祂使我躺臥在青草地上',
+    prompt: '最近，神為你預備了哪些「微小但足夠」的恩典？',
+    icon: '🌱',
+    color: 'bg-green-100 border-green-400',
+    options: [
+      { id: 'a', text: '一句適時的鼓勵話語', insight: '話語中的恩典', scripture: '一句話說得合宜，就如金蘋果在銀網子裡。', scriptureRef: '箴言 25:11', guidance: '神常透過人的口說出祂的安慰。那句鼓勵的話不是偶然的，是牧人為你預備的「青草」。學習成為別人生命中說合宜話語的人。' },
+      { id: 'b', text: '意外的幫助或供應', insight: '供應中的恩典', scripture: '耶和華以勒——耶和華必預備。', scriptureRef: '創世記 22:14', guidance: '當亞伯拉罕在山上需要祭物時，神預備了公羊。你所經歷的意外供應，正是「耶和華以勒」的明證。記錄這些恩典，成為你信心的根基。' },
+      { id: 'c', text: '一段安靜獨處的時間', insight: '安息中的恩典', scripture: '你們要休息，要知道我是神！', scriptureRef: '詩篇 46:10', guidance: '在忙碌中能有安靜的時刻是珍貴的恩典。這不只是休息，更是與神相遇的機會。繼續保護這樣的時間，讓它成為你生命的「青草地」。' },
+      { id: 'd', text: '經文或詩歌帶來的感動', insight: '神話語的恩典', scripture: '你的話是我腳前的燈，是我路上的光。', scriptureRef: '詩篇 119:105', guidance: '當經文或詩歌觸動你的心，那是聖靈在對你說話。把這些感動記錄下來，在困難時刻重新翻閱，讓神的話成為你持續的供應。' },
+      { id: 'e', text: '家人或朋友的陪伴', insight: '關係中的恩典', scripture: '兩個人總比一個人好，因為二人勞碌同得美好的果效。', scriptureRef: '傳道書 4:9', guidance: '神設立群體，是因為祂知道我們需要彼此。珍惜那些陪伴你的人，他們是神放在你生命中的祝福。也學習成為別人的「青草地」。' }
+    ]
+  },
+  {
+    id: 'water',
+    name: '可安歇的水邊',
+    verse: '領我在可安歇的水邊',
+    prompt: '在你的生活中，什麼讓你的靈魂能真正安靜、恢復神采？',
+    icon: '💧',
+    color: 'bg-blue-100 border-blue-400',
+    options: [
+      { id: 'a', text: '清晨或夜晚的安靜靈修時間', insight: '靈修的活水', scripture: '但那等候耶和華的必重新得力。他們必如鷹展翅上騰；他們奔跑卻不困倦，行走卻不疲乏。', scriptureRef: '以賽亞書 40:31', guidance: '你已經找到了生命中的「可安歇水邊」。持續這個習慣，讓它成為你每天的優先。在忙碌中保護這段時間，因為這是你靈魂得力的泉源。' },
+      { id: 'b', text: '大自然中的散步或獨處', insight: '受造界的活水', scripture: '諸天述說神的榮耀；穹蒼傳揚他的手段。', scriptureRef: '詩篇 19:1', guidance: '神透過祂所創造的大自然向你說話。在自然中，你能看見神的偉大、感受祂的同在。繼續在受造界中尋找神，讓它成為你敬拜的延伸。' },
+      { id: 'c', text: '與屬靈同伴的深度交談', insight: '團契的活水', scripture: '又要彼此相顧，激發愛心，勉勵行善。', scriptureRef: '希伯來書 10:24', guidance: '深度的屬靈友誼是極大的祝福。這樣的關係需要刻意經營。繼續投資在這些關係中，讓彼此成為對方走天路的同伴與守望者。' },
+      { id: 'd', text: '敬拜詩歌或聖樂', insight: '敬拜的活水', scripture: '當用詩章、頌詞、靈歌彼此對說，口唱心和地讚美主。', scriptureRef: '以弗所書 5:19', guidance: '音樂是神賜給人獨特的禮物，能觸及我們理性難以到達的地方。讓敬拜成為你日常生活的一部分，不只在主日，也在每一天。' },
+      { id: 'e', text: '主日崇拜或小組聚會', insight: '聚會的活水', scripture: '你們不可停止聚會，好像那些停止慣了的人，倒要彼此勸勉。', scriptureRef: '希伯來書 10:25', guidance: '群體的敬拜有獨特的力量。在聚會中，我們不只是個人領受，更是與眾聖徒一同經歷神。珍惜每次聚會的機會，也學習在其中付出與服事。' }
+    ]
+  },
+  {
+    id: 'wadi',
+    name: '⚠️ 乾谷急流',
+    verse: '（對比：危險的水源）',
+    prompt: '哪些事物表面上能滿足你，實際上卻可能帶來危險？',
+    icon: '⚡',
+    color: 'bg-red-100 border-red-400',
+    options: [
+      { id: 'a', text: '過度使用社群媒體或追劇來逃避現實', insight: '數位世界的急流', scripture: '凡事我都可行，但不都有益處。凡事我都可行，但無論哪一件，我總不受它的轄制。', scriptureRef: '哥林多前書 6:12', guidance: '社群媒體和影視本身不是罪，但當它成為逃避現實的工具時，就像乾谷的急流——看似能解渴，實際卻會沖走你的時間和專注力。設立健康的界線，讓這些成為僕人而非主人。' },
+      { id: 'b', text: '用忙碌工作來填補內心的空虛', insight: '忙碌的急流', scripture: '你們要先求他的國和他的義，這些東西都要加給你們了。', scriptureRef: '馬太福音 6:33', guidance: '工作是神的呼召，但當工作成為填補空虛的方式時，它就變成了偶像。問問自己：我是在為神工作，還是用工作來逃避面對內心？學習在神面前安靜，讓祂來滿足你。' },
+      { id: 'c', text: '依賴物質享受來獲得短暫快樂', insight: '物質的急流', scripture: '不要為那必壞的食物勞力，要為那存到永生的食物勞力。', scriptureRef: '約翰福音 6:27', guidance: '物質享受帶來的滿足是短暫的，需要不斷加量才能維持。真正的滿足只有在神裡面才能找到。這不是說不能享受物質，而是不讓它成為你快樂的來源。' },
+      { id: 'd', text: '尋求人的認可來肯定自我價值', insight: '認可的急流', scripture: '我現在是要得人的心呢？還是要得神的心呢？我豈是討人的喜歡嗎？若仍舊討人的喜歡，我就不是基督的僕人了。', scriptureRef: '加拉太書 1:10', guidance: '渴望被認可是人之常情，但當它成為你價值感的來源時，你就會被它控制。你的價值不在於人怎麼看你，而在於神怎麼看你——祂看你為寶貴，配得祂兒子的生命。' },
+      { id: 'e', text: '靠自己的能力解決一切問題', insight: '自力的急流', scripture: '你們得救是本乎恩，也因著信；這並不是出於自己，乃是神所賜的。', scriptureRef: '以弗所書 2:8', guidance: '自立自強在這世界被推崇，但在神的國度裡，承認軟弱才是力量的開始。當你放下「我可以靠自己」的驕傲，才能真正經歷神的大能。' }
+    ]
+  },
+  {
+    id: 'path',
+    name: '義路',
+    verse: '為自己的名引導我走義路',
+    prompt: '回顧過去，神曾怎樣帶領你走過「當時不明白，後來才發現是對的」的路？',
+    icon: '🛤️',
+    color: 'bg-purple-100 border-purple-400',
+    options: [
+      { id: 'a', text: '一扇關閉的門，後來開啟了更好的機會', insight: '關門的引導', scripture: '耶和華說：我的意念非同你們的意念；我的道路非同你們的道路。天怎樣高過地，照樣，我的道路高過你們的道路。', scriptureRef: '以賽亞書 55:8-9', guidance: '那扇關閉的門當時可能讓你失望，但神的視野比我們更廣闊。祂關上一扇門，往往是為了打開更好的一扇。學習在門關上時，仍然信靠神的美意。' },
+      { id: 'b', text: '一段困難的經歷，塑造了我的品格', insight: '苦難中的引導', scripture: '我們曉得萬事都互相效力，叫愛神的人得益處。', scriptureRef: '羅馬書 8:28', guidance: '那段困難的經歷在當時是痛苦的，但現在你能看見神如何使用它來塑造你。這不是說神喜歡讓你受苦，而是祂有能力把苦難轉化為祝福。' },
+      { id: 'c', text: '一個被迫的等待，讓我學會信靠', insight: '等待中的引導', scripture: '我等候耶和華，我的心等候；我也仰望他的話。', scriptureRef: '詩篇 130:5', guidance: '等待是信心最大的考驗之一。那段被迫等待的時間，教導你依靠的不是時機、不是環境，而是那位掌管時間的神。等待的功課會成為你一生的資產。' },
+      { id: 'd', text: '一次失敗的嘗試，保護我免於更大的錯誤', insight: '失敗中的引導', scripture: '義人雖七次跌倒，仍必興起。', scriptureRef: '箴言 24:16', guidance: '那次失敗在當時是挫折，但現在你能看見它其實是神的保護。感謝神，祂用小的跌倒來防止大的墜落。不要怕失敗，因為有時候失敗正是神的引導。' },
+      { id: 'e', text: '一段意外的相遇，帶來生命的轉折', insight: '相遇中的引導', scripture: '人心籌算自己的道路；惟耶和華指引他的腳步。', scriptureRef: '箴言 16:9', guidance: '那個「意外」的相遇，在神眼中並不意外。祂常常透過人與人的相遇來成就祂的計畫。保持開放的心，因為你不知道神下一次會透過誰來祝福你或使用你。' }
+    ]
+  },
+  {
+    id: 'valley',
+    name: '死蔭的幽谷',
+    verse: '我雖然行過死蔭的幽谷，也不怕遭害',
+    prompt: '現在最令你感到「在幽谷中」的挑戰是什麼？',
+    icon: '🌑',
+    color: 'bg-gray-200 border-gray-500',
+    options: [
+      { id: 'a', text: '對未來的不確定感和恐懼', insight: '面對未知的幽谷', scripture: '所以，不要為明天憂慮，因為明天自有明天的憂慮；一天的難處一天當就夠了。', scriptureRef: '馬太福音 6:34', guidance: '對未來的恐懼是人之常情，但請記得：你不需要一次背負所有日子的重擔。牧人只帶羊走今天的路，明天的路明天再走。把未來交託給那位已經在明天等候你的神。' },
+      { id: 'b', text: '失去所愛的人或關係的破裂', insight: '失去的幽谷', scripture: '耶和華靠近傷心的人，拯救靈性痛悔的人。', scriptureRef: '詩篇 34:18', guidance: '失去的痛是真實的，不需要假裝堅強。神靠近傷心的人——祂不會要你趕快走出來，而是陪伴你走過這段黑暗。讓自己好好哀傷，也讓神的安慰臨到你。' },
+      { id: 'c', text: '長期的疾病或身心軟弱', insight: '疾病的幽谷', scripture: '他對我說：我的恩典夠你用的，因為我的能力是在人的軟弱上顯得完全。', scriptureRef: '哥林多後書 12:9', guidance: '長期的病痛是漫長的幽谷。神可能沒有立即醫治你，但祂應許祂的恩典夠你用。在軟弱中，讓神的能力成為你的倚靠，也讓自己成為見證神信實的器皿。' },
+      { id: 'd', text: '內心的罪疚感或羞恥感', insight: '罪疚的幽谷', scripture: '我們若認自己的罪，神是信實的，是公義的，必要赦免我們的罪，洗淨我們一切的不義。', scriptureRef: '約翰一書 1:9', guidance: '罪疚感可以引導我們悔改，但持續的羞恥感不是從神來的。如果你已經向神認罪，祂已經赦免你了。不要讓撒但用已蒙赦免的罪來控告你。站在神的恩典中，接受祂的赦免。' },
+      { id: 'e', text: '信仰的懷疑或屬靈的枯乾', insight: '懷疑的幽谷', scripture: '我信！但我信不足，求主幫助。', scriptureRef: '馬可福音 9:24', guidance: '懷疑不是信仰的終點，而可能是更深信仰的起點。誠實地把你的懷疑帶到神面前，祂不怕你的問題。那位父親說「我信不足，求主幫助」，耶穌沒有責備他，而是幫助了他。' }
+    ]
+  },
+  {
+    id: 'table',
+    name: '敵人面前的筵席',
+    verse: '在我敵人面前，你為我擺設筵席',
+    prompt: '在哪種「敵人」仍然存在的情況下，你曾經歷神所賜的平安？',
+    icon: '🍽️',
+    color: 'bg-yellow-100 border-yellow-400',
+    options: [
+      { id: 'a', text: '在工作壓力中，仍有從神來的安息', insight: '壓力中的筵席', scripture: '凡勞苦擔重擔的人可以到我這裡來，我就使你們得安息。', scriptureRef: '馬太福音 11:28', guidance: '你已經學會一個寶貴的功課：平安不是沒有壓力，而是在壓力中仍有安息。這是從神來的禮物。繼續操練在壓力中轉向神，讓祂成為你安息的源頭。' },
+      { id: 'b', text: '在人際衝突中，仍能保持內心平靜', insight: '衝突中的筵席', scripture: '我留下平安給你們；我將我的平安賜給你們。我所賜的，不像世人所賜的。你們心裡不要憂愁，也不要膽怯。', scriptureRef: '約翰福音 14:27', guidance: '在衝突中保持平靜是聖靈的果子。這不是冷漠，而是從神來的超然平安。繼續讓神掌管你的情緒，成為衝突中帶來和平的人。' },
+      { id: 'c', text: '在經濟困難中，仍經歷神的供應', insight: '困乏中的筵席', scripture: '少壯獅子還缺食忍餓，但尋求耶和華的什麼好處都不缺。', scriptureRef: '詩篇 34:10', guidance: '你在經濟困難中經歷神的供應，這是寶貴的見證。把這些經歷記錄下來，它們會成為你未來信心的根基，也能成為鼓勵他人的故事。' },
+      { id: 'd', text: '在疾病軟弱中，仍有喜樂和盼望', insight: '病痛中的筵席', scripture: '因為我們這至暫至輕的苦楚，要為我們成就極重無比、永遠的榮耀。', scriptureRef: '哥林多後書 4:17', guidance: '在疾病中仍有喜樂，這不是否認痛苦，而是超越痛苦的信心。你的生命正在見證：喜樂不是來自環境，而是來自神。這樣的見證比言語更有力量。' },
+      { id: 'e', text: '在世界的混亂中，仍有屬天的平安', insight: '混亂中的筵席', scripture: '我將這些事告訴你們，是要叫你們在我裡面有平安。在世上，你們有苦難；但你們可以放心，我已經勝了世界。', scriptureRef: '約翰福音 16:33', guidance: '世界的混亂不會停止，但你已經找到了在混亂中的錨——就是基督。繼續定睛在祂身上，因為祂已經勝過這世界。你的平安來自於祂的得勝。' }
+    ]
+  },
+  {
+    id: 'temple',
+    name: '終點：耶和華的殿',
+    verse: '我且要住在耶和華的殿中，直到永遠',
+    prompt: '對於「永遠與神同在」的盼望，什麼讓你有確據？',
+    icon: '🏛️',
+    color: 'bg-indigo-100 border-indigo-400',
+    options: [
+      { id: 'a', text: '耶穌的十架救恩與復活的應許', insight: '十架的確據', scripture: '神愛世人，甚至將他的獨生子賜給他們，叫一切信他的，不致滅亡，反得永生。', scriptureRef: '約翰福音 3:16', guidance: '你的確據建立在最穩固的根基上——耶穌的十架與空墳墓。這不是你賺來的，而是神白白賜給你的禮物。每當懷疑來臨時，回到十架前，重新思想神的愛有多大。' },
+      { id: 'b', text: '聖靈在我心中的印記與確據', insight: '聖靈的確據', scripture: '聖靈與我們的心同證我們是神的兒女。', scriptureRef: '羅馬書 8:16', guidance: '聖靈在你心中的見證是真實的。那個你說不出來但知道自己屬於神的感覺，正是聖靈的印記。珍惜這份確據，它是神給你的禮物。' },
+      { id: 'c', text: '過去經歷神信實的記憶', insight: '經歷的確據', scripture: '耶和華所行的是正直；他是我的磐石，在他毫無不義。', scriptureRef: '詩篇 92:15', guidance: '你過去經歷的神的信實，是你未來盼望的根基。那位昨日信實的神，今日和永遠都是一樣的。常常數算神的恩典，讓這些記憶成為你信心的燃料。' },
+      { id: 'd', text: '聖經中永生的應許與盼望', insight: '話語的確據', scripture: '天地要廢去，我的話卻不能廢去。', scriptureRef: '馬太福音 24:35', guidance: '神的話語是不會改變的。祂應許了永生，就必定成就。繼續扎根在神的話語中，讓聖經的應許成為你盼望的錨。' },
+      { id: 'e', text: '屬靈群體的見證與激勵', insight: '群體的確據', scripture: '我們既有這許多的見證人，如同雲彩圍著我們，就當放下各樣的重擔，脫去容易纏累我們的罪，存心忍耐，奔那擺在我們前頭的路程。', scriptureRef: '希伯來書 12:1', guidance: '你不是獨自奔跑這條路。那些在你之前、和你一起奔跑的見證人，印證了這條路是真實的。珍惜屬靈的群體，也成為別人信心的見證。' }
+    ]
+  }
+];
+
+const declarationOptions = [
+  { text: '雖然未來看似曠野，但我相信牧人明天也會帶領我到新的青草地。', scripture: '所以，不要為明天憂慮，因為明天自有明天的憂慮。', scriptureRef: '馬太福音 6:34' },
+  { text: '我不需要為明天憂慮，因為神每天都會供應我所需要的。', scripture: '我們日用的飲食，今日賜給我們。', scriptureRef: '馬太福音 6:11' },
+  { text: '即使前路不明，我選擇跟隨牧人的腳步，因為祂認識我。', scripture: '我是好牧人；我認識我的羊，我的羊也認識我。', scriptureRef: '約翰福音 10:14' },
+  { text: '我的牧者從未離棄我，祂的恩惠慈愛必隨著我。', scripture: '我總不撇下你，也不丟棄你。', scriptureRef: '希伯來書 13:5' }
+];
+
+export default function Psalm23LifeMap() {
+  const [responses, setResponses] = useState({});
+  const [activeLocation, setActiveLocation] = useState(null);
+  const [viewMode, setViewMode] = useState('map');
+  const [declaration, setDeclaration] = useState(null);
+
+  const handleSelect = (locationId, optionId) => {
+    setResponses(prev => {
+      const current = prev[locationId] || [];
+      if (current.includes(optionId)) {
+        return { ...prev, [locationId]: current.filter(id => id !== optionId) };
+      } else {
+        return { ...prev, [locationId]: [...current, optionId] };
+      }
+    });
+  };
+
+  const completedCount = Object.values(responses).filter(r => r && r.length > 0).length;
+  const progress = Math.round((completedCount / locations.length) * 100);
+
+  const getSelectedOptions = (locationId) => {
+    const loc = locations.find(l => l.id === locationId);
+    const selected = responses[locationId] || [];
+    return loc.options.filter(o => selected.includes(o.id));
+  };
+
+  const LocationCard = ({ loc, onClick }) => (
+    <div onClick={onClick} className={`p-5 rounded-xl border-3 cursor-pointer transition-all ${loc.color} hover:scale-105 hover:shadow-lg`}>
+      <div className="flex items-center gap-3 mb-3">
+        <span className="text-4xl">{loc.icon}</span>
+        <h3 className="font-bold text-gray-800 text-lg leading-tight">{loc.name}</h3>
+        {responses[loc.id]?.length > 0 && (
+          <span className="ml-auto bg-green-500 text-white text-base px-3 py-1 rounded-full font-bold">{responses[loc.id].length}</span>
+        )}
+      </div>
+      <p className="text-base text-gray-600 italic">「{loc.verse}」</p>
+    </div>
+  );
+
+  const DetailPanel = ({ loc }) => (
+    <div className={`p-6 rounded-xl border-3 ${loc.color}`}>
+      <div className="flex items-center gap-4 mb-5">
+        <span className="text-5xl">{loc.icon}</span>
+        <div>
+          <h2 className="text-2xl font-bold text-gray-800">{loc.name}</h2>
+          <p className="text-gray-600 italic text-lg">「{loc.verse}」</p>
+        </div>
+      </div>
+      <div className="bg-white/60 rounded-xl p-5 mb-5">
+        <h4 className="font-bold text-gray-800 mb-4 text-xl">{loc.prompt}</h4>
+        <p className="text-base text-gray-500 mb-4">（可複選）</p>
+        <div className="space-y-3">
+          {loc.options.map(option => {
+            const isSelected = (responses[loc.id] || []).includes(option.id);
+            return (
+              <button key={option.id} onClick={() => handleSelect(loc.id, option.id)}
+                className={`w-full text-left p-4 rounded-xl border-2 transition-all text-lg ${isSelected ? 'border-blue-500 bg-blue-50 text-blue-800 font-medium' : 'border-gray-200 bg-white hover:border-gray-400 text-gray-700'}`}>
+                <span className="flex items-center gap-3">
+                  <span className={`w-7 h-7 rounded-lg border-2 flex items-center justify-center text-lg flex-shrink-0 ${isSelected ? 'bg-blue-500 border-blue-500 text-white' : 'border-gray-300'}`}>
+                    {isSelected && '✓'}
+                  </span>
+                  <span className="leading-snug">{option.text}</span>
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+      <button onClick={() => setActiveLocation(null)} className="w-full py-3 bg-white/80 rounded-xl text-gray-600 hover:bg-white transition-colors text-lg font-medium">← 返回地圖</button>
+    </div>
+  );
+
+  const SummaryView = () => (
+    <div className="space-y-5">
+      <div className="bg-gradient-to-r from-green-50 to-blue-50 p-5 rounded-xl border-2">
+        <h3 className="font-bold text-2xl text-gray-800 mb-4">📜 我的生命地圖總覽</h3>
+        {locations.map(loc => {
+          const selected = getSelectedOptions(loc.id);
+          return (
+            <div key={loc.id} className="mb-4 pb-4 border-b last:border-b-0">
+              <div className="flex items-center gap-3 mb-2">
+                <span className="text-2xl">{loc.icon}</span>
+                <span className="font-bold text-lg">{loc.name}</span>
+              </div>
+              {selected.length > 0 ? (
+                <ul className="text-gray-700 text-base bg-white/70 p-3 rounded-lg space-y-2">
+                  {selected.map((opt, i) => (<li key={i}>• {opt.text}</li>))}
+                </ul>
+              ) : (<p className="text-gray-400 text-base italic">（尚未選擇）</p>)}
+            </div>
+          );
+        })}
+      </div>
+      <div className="bg-amber-50 p-5 rounded-xl border-2 border-amber-200">
+        <h3 className="font-bold text-2xl text-gray-800 mb-3">🙏 信心宣告</h3>
+        <p className="text-gray-600 text-lg mb-4">牧人每天都會找到新的草地，羊不必為明天憂慮。請選擇一句作為你的信心宣告：</p>
+        <div className="space-y-3">
+          {declarationOptions.map((item, i) => (
+            <button key={i} onClick={() => setDeclaration(i)}
+              className={`w-full text-left p-4 rounded-xl border-2 transition-all text-lg ${declaration === i ? 'border-amber-500 bg-amber-100 text-amber-900 font-medium' : 'border-gray-200 bg-white hover:border-amber-300 text-gray-700'}`}>
+              <span className="flex items-start gap-3">
+                <span className={`w-7 h-7 rounded-full border-2 flex items-center justify-center flex-shrink-0 mt-1 ${declaration === i ? 'bg-amber-500 border-amber-500 text-white' : 'border-gray-300'}`}>
+                  {declaration === i && '✓'}
+                </span>
+                <span className="leading-snug">{item.text}</span>
+              </span>
+            </button>
+          ))}
+        </div>
+        {declaration !== null && (
+          <div className="mt-4 p-4 bg-amber-100 rounded-xl border border-amber-300">
+            <p className="text-amber-800 text-base italic">「{declarationOptions[declaration].scripture}」</p>
+            <p className="text-amber-700 text-base text-right mt-1">——{declarationOptions[declaration].scriptureRef}</p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+
+  const AnalysisView = () => {
+    const allSelected = locations.flatMap(loc => getSelectedOptions(loc.id).map(opt => ({ ...opt, locationName: loc.name, locationIcon: loc.icon })));
+    if (allSelected.length === 0) {
+      return (
+        <div className="bg-gray-50 p-8 rounded-xl border-2 text-center">
+          <p className="text-gray-500 text-xl">請先在「地圖探索」中完成選擇，<br/>才能查看聖經解析。</p>
+        </div>
+      );
+    }
+    return (
+      <div className="space-y-5">
+        <div className="bg-gradient-to-r from-purple-50 to-indigo-50 p-5 rounded-xl border-2">
+          <h3 className="font-bold text-2xl text-gray-800 mb-2">📖 聖經解析與引導</h3>
+          <p className="text-gray-600 text-base mb-4">根據你的選擇，以下是來自聖經的啟示與建議：</p>
+        </div>
+        {locations.map(loc => {
+          const selected = getSelectedOptions(loc.id);
+          if (selected.length === 0) return null;
+          return (
+            <div key={loc.id} className={`p-5 rounded-xl border-2 ${loc.color}`}>
+              <div className="flex items-center gap-3 mb-4">
+                <span className="text-3xl">{loc.icon}</span>
+                <h4 className="font-bold text-xl text-gray-800">{loc.name}</h4>
+              </div>
+              {selected.map((opt, i) => (
+                <div key={i} className="bg-white/80 rounded-xl p-5 mb-4 last:mb-0">
+                  <h5 className="font-bold text-lg text-gray-800 mb-3">💡 {opt.insight}</h5>
+                  <p className="text-gray-600 text-base mb-1">你選擇了：「{opt.text}」</p>
+                  <div className="bg-indigo-50 rounded-lg p-4 my-4 border-l-4 border-indigo-400">
+                    <p className="text-indigo-800 text-lg italic leading-relaxed">「{opt.scripture}」</p>
+                    <p className="text-indigo-600 text-base text-right mt-2">——{opt.scriptureRef}</p>
+                  </div>
+                  <div className="bg-green-50 rounded-lg p-4 border-l-4 border-green-400">
+                    <h6 className="font-bold text-green-800 text-base mb-2">🌿 引導建議</h6>
+                    <p className="text-green-700 text-base leading-relaxed">{opt.guidance}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          );
+        })}
+        {declaration !== null && (
+          <div className="bg-amber-50 p-5 rounded-xl border-2 border-amber-300">
+            <h4 className="font-bold text-xl text-gray-800 mb-3">🙏 你的信心宣告</h4>
+            <p className="text-amber-900 text-xl font-medium mb-3">「{declarationOptions[declaration].text}」</p>
+            <div className="bg-amber-100 rounded-lg p-4">
+              <p className="text-amber-800 text-lg italic">「{declarationOptions[declaration].scripture}」</p>
+              <p className="text-amber-700 text-base text-right mt-1">——{declarationOptions[declaration].scriptureRef}</p>
+            </div>
+          </div>
+        )}
+        <div className="bg-indigo-100 p-5 rounded-xl border-2 border-indigo-300 text-center">
+          <p className="text-indigo-800 font-bold text-xl mb-2">「我是好牧人，我認識我的羊，我的羊也認識我」</p>
+          <p className="text-indigo-600 text-base">——約翰福音 10:14</p>
+        </div>
+      </div>
+    );
+  };
+
+  return (
+    <div className="max-w-3xl mx-auto p-5 bg-gradient-to-b from-sky-50 to-amber-50 min-h-screen">
+      <div className="text-center mb-6">
+        <h1 className="text-3xl font-bold text-gray-800 mb-2">🗺️ 詩篇23篇生命地圖</h1>
+        <p className="text-gray-600 text-lg">從內蓋夫曠野到耶和華的殿——標記你生命中的每個場景</p>
+      </div>
+      <div className="bg-white rounded-xl p-4 mb-5 shadow-sm">
+        <div className="flex items-center justify-between mb-2">
+          <span className="text-base text-gray-600">完成進度</span>
+          <span className="text-base font-bold text-blue-600">{completedCount}/{locations.length} 站</span>
+        </div>
+        <div className="w-full bg-gray-200 rounded-full h-3">
+          <div className="bg-gradient-to-r from-green-400 to-blue-500 h-3 rounded-full transition-all duration-500" style={{ width: `${progress}%` }} />
+        </div>
+      </div>
+      <div className="flex gap-2 mb-5">
+        <button onClick={() => setViewMode('map')} className={`flex-1 py-3 px-2 rounded-xl text-base font-bold transition-colors ${viewMode === 'map' ? 'bg-blue-500 text-white' : 'bg-white text-gray-600 hover:bg-gray-100'}`}>🗺️ 地圖探索</button>
+        <button onClick={() => setViewMode('summary')} className={`flex-1 py-3 px-2 rounded-xl text-base font-bold transition-colors ${viewMode === 'summary' ? 'bg-blue-500 text-white' : 'bg-white text-gray-600 hover:bg-gray-100'}`}>📋 總覽宣告</button>
+        <button onClick={() => setViewMode('analysis')} className={`flex-1 py-3 px-2 rounded-xl text-base font-bold transition-colors ${viewMode === 'analysis' ? 'bg-blue-500 text-white' : 'bg-white text-gray-600 hover:bg-gray-100'}`}>📖 聖經解析</button>
+      </div>
+      {viewMode === 'summary' ? <SummaryView /> : viewMode === 'analysis' ? <AnalysisView /> : activeLocation ? <DetailPanel loc={locations.find(l => l.id === activeLocation)} /> : (
+        <div className="space-y-4">
+          <div className="text-center text-gray-500 text-lg mb-3">👆 點選任一站點進行選擇</div>
+          <div className="grid grid-cols-2 gap-4">
+            {locations.map(loc => <LocationCard key={loc.id} loc={loc} onClick={() => setActiveLocation(loc.id)} />)}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+Claude
